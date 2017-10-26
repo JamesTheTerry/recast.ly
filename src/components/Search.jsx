@@ -1,16 +1,17 @@
 var Search = (props) => {
-
   const handleUserSearch = () => {
     var searchTerms = $('input').val();
     props.onUserSearch(searchTerms);
   };
+
+  const debouncedSearch = _.debounce(props.onUserSearch, 500);
 
   const handleUserTyping = (e) => {
     var searchTerms = $('input').val();
     if (e.keyCode === 13) {
       props.onUserSearch(searchTerms);
     } else {
-      _.debounce(props.onUserSearch, 500)(searchTerms);
+      debouncedSearch(searchTerms);
     }
   };
 
