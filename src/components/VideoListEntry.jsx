@@ -1,7 +1,6 @@
 var VideoListEntry = (props) => {
 
   const handleTitleClick = () => {
-    console.log('click');
     props.onTitleClick(props.video);
   };
 

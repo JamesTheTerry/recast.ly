@@ -1,5 +1,4 @@
 var searchYouTube = (options, callback) => {
-  console.log('options: ', options);
   $.get('https://www.googleapis.com/youtube/v3/search',
     {
       maxResults: options.max,

@@ -7,7 +7,27 @@ class App extends React.Component {
     };
 
     this.handleTitleClick = this.handleTitleClick.bind(this);
-    searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: 'James Terry'}, (input) => {
+  }
+
+  componentDidMount() {
+    const options = {
+      key: YOUTUBE_API_KEY,
+      max: 5,
+      query: 'Sometimes things that are expensive'
+    };
+
+    const callback = (input) => {
+      this.setState({
+        player: input[0],
+        vidList: input
+      });
+    };
+
+    this.props.searchYouTube(options, callback);
+  }
+
+  handleInitSearch(initQuery) {
+    searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: initQuery}, (input) => {
       console.log('input', input);
       this.setState({
         player: input[0],
@@ -45,4 +65,3 @@ class App extends React.Component {
 }
 
 window.App = App;
-ReactDOM.render(<App />, $('#app')[0]);
