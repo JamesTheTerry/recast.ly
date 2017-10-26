@@ -1,7 +1,3 @@
-
-
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +7,13 @@ class App extends React.Component {
     };
 
     this.handleTitleClick = this.handleTitleClick.bind(this);
+    searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: 'James Terry'}, (input) => {
+      console.log('input', input);
+      this.setState({
+        player: input[0],
+        vidList: input
+      });
+    });
   }
 
   handleTitleClick(video) {
