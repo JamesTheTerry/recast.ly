@@ -6,7 +6,15 @@ class App extends React.Component {
       vidList: exampleVideoData,
     };
 
+    this.setStatePostSearch = this.setStatePostSearch.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
+  }
+
+  setStatePostSearch (input) {
+    this.setState({
+      player: input[0],
+      vidList: input,
+    });
   }
 
   componentDidMount() {
@@ -16,14 +24,7 @@ class App extends React.Component {
       query: 'Sometimes things that are expensive'
     };
 
-    const callback = (input) => {
-      this.setState({
-        player: input[0],
-        vidList: input
-      });
-    };
-
-    this.props.searchYouTube(options, callback);
+    this.props.searchYouTube(options, this.setStatePostSearch);
   }
 
   handleInitSearch(initQuery) {
