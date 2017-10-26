@@ -37,21 +37,11 @@ class App extends React.Component {
     const options = {
       key: YOUTUBE_API_KEY,
       max: 5,
-      query: 'Sometimes things that are expensive'
+      query: 'Stop trying to make fetch happen'
     };
 
     this.props.searchYouTube(options, this.setStatePostSearch);
   }
-
-  // handleInitSearch(initQuery) {
-  //   searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: initQuery}, (input) => {
-  //     console.log('input', input);
-  //     this.setState({
-  //       player: input[0],
-  //       vidList: input
-  //     });
-  //   });
-  // }
 
   handleTitleClick(video) {
     this.setState({
@@ -71,8 +61,8 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY,
       max: 5,
       query: searchTerms
-    }
-    searchYouTube(options, this.setStatePostSearch);
+    };
+    searchYouTubeFetch(options, this.setStatePostSearch);
   }
 
 }
