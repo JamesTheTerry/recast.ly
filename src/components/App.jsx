@@ -8,39 +8,7 @@ class App extends React.Component {
 
     this.setStatePostSearch = this.setStatePostSearch.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
-  }
-
-  setStatePostSearch (input) {
-    this.setState({
-      player: input[0],
-      vidList: input,
-    });
-  }
-
-  componentDidMount() {
-    const options = {
-      key: YOUTUBE_API_KEY,
-      max: 5,
-      query: 'Sometimes things that are expensive'
-    };
-
-    this.props.searchYouTube(options, this.setStatePostSearch);
-  }
-
-  handleInitSearch(initQuery) {
-    searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: initQuery}, (input) => {
-      console.log('input', input);
-      this.setState({
-        player: input[0],
-        vidList: input
-      });
-    });
-  }
-
-  handleTitleClick(video) {
-    this.setState({
-      player: video
-    });
+    this.handleUserSearch = this.handleUserSearch.bind(this);
   }
 
   render() {
@@ -48,7 +16,9 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div>
+              <Search onUserSearch={this.handleUserSearch}/>
+            </div>
           </div>
         </nav>
         <div className="row">
@@ -61,6 +31,48 @@ class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    const options = {
+      key: YOUTUBE_API_KEY,
+      max: 5,
+      query: 'Sometimes things that are expensive'
+    };
+
+    this.props.searchYouTube(options, this.setStatePostSearch);
+  }
+
+  // handleInitSearch(initQuery) {
+  //   searchYouTube({key: YOUTUBE_API_KEY, max: 5, query: initQuery}, (input) => {
+  //     console.log('input', input);
+  //     this.setState({
+  //       player: input[0],
+  //       vidList: input
+  //     });
+  //   });
+  // }
+
+  handleTitleClick(video) {
+    this.setState({
+      player: video
+    });
+  }
+
+  setStatePostSearch (input) {
+    this.setState({
+      player: input[0],
+      vidList: input,
+    });
+  }
+
+  handleUserSearch(searchTerms) {
+    let options = {
+      key: YOUTUBE_API_KEY,
+      max: 5,
+      query: searchTerms
+    }
+    searchYouTube(options, this.setStatePostSearch);
   }
 
 }
