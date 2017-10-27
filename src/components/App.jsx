@@ -40,7 +40,7 @@ class App extends React.Component {
     const options = {
       key: YOUTUBE_API_KEY,
       max: 5,
-      query: 'Mean Girls (1/10)'
+      query: 'Thats so fetch'
     };
 
     this.props.searchYouTube(options, this.setStatePostSearch);
@@ -75,7 +75,6 @@ class App extends React.Component {
   }
 
   setStateOfDetails(video) {
-    console.log('ssod', video);
     this.setState({
       playerDetails: video.snippet.description
     });

@@ -1,6 +1,5 @@
 var VideoPlayer = (props) => {
   const handleShowDetails = () => {
-    console.log('show details');
     props.onShowMore(props.video);
   };
   return (

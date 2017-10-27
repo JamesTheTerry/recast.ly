@@ -54,7 +54,6 @@ var getVideoDetails = (video, callback) => {
   fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
-      console.log('Vid Details', data.items[0]);
       callback(data.items[0]);
     });
 };
