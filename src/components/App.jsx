@@ -3,12 +3,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       player: exampleVideoData[0],
+      playerDetails: '',
       vidList: exampleVideoData,
     };
 
     this.setStatePostSearch = this.setStatePostSearch.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
     this.handleUserSearch = this.handleUserSearch.bind(this);
+    this.handlePlayerDetails = this.handlePlayerDetails.bind(this);
+    this.setStateOfDetails = this.setStateOfDetails.bind(this);
   }
 
   render() {
@@ -23,7 +26,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer video={this.state.player}/></div>
+            <div><VideoPlayer video={this.state.player} playerDetails={this.state.playerDetails} onShowMore={this.handlePlayerDetails}/></div>
           </div>
           <div className="col-md-5">
             <VideoList videos={this.state.vidList} onTitleClick={this.handleTitleClick}/>
@@ -37,7 +40,7 @@ class App extends React.Component {
     const options = {
       key: YOUTUBE_API_KEY,
       max: 5,
-      query: 'Stop trying to make fetch happen'
+      query: 'Mean Girls (1/10)'
     };
 
     this.props.searchYouTube(options, this.setStatePostSearch);
@@ -45,14 +48,16 @@ class App extends React.Component {
 
   handleTitleClick(video) {
     this.setState({
-      player: video
+      player: video,
+      playerDetails: ''
     });
   }
 
-  setStatePostSearch (input) {
+  setStatePostSearch(input) {
     this.setState({
       player: input[0],
       vidList: input,
+      playerDetails: ''
     });
   }
 
@@ -63,6 +68,17 @@ class App extends React.Component {
       query: searchTerms
     };
     searchYouTubeFetch(options, this.setStatePostSearch);
+  }
+
+  handlePlayerDetails(video) {
+    getVideoDetails(video, this.setStateOfDetails);
+  }
+
+  setStateOfDetails(video) {
+    console.log('ssod', video);
+    this.setState({
+      playerDetails: video.snippet.description
+    });
   }
 
 }

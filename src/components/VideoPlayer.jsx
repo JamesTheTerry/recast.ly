@@ -1,14 +1,21 @@
-var VideoPlayer = (props) => (
-  <div className="video-player">
-    <div className="embed-responsive embed-responsive-16by9">
-      <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + props.video.id.videoId} allowFullScreen></iframe>
+var VideoPlayer = (props) => {
+  const handleShowDetails = () => {
+    console.log('show details');
+    props.onShowMore(props.video);
+  };
+  return (
+    <div className="video-player">
+      <div className="embed-responsive embed-responsive-16by9">
+        <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + props.video.id.videoId} allowFullScreen></iframe>
+      </div>
+      <div className="video-player-details">
+        <h3>{props.video.snippet.title}</h3>
+        <div>{props.playerDetails || props.video.snippet.description}</div>
+        <p className="show-more" onClick={handleShowDetails}>{(props.playerDetails ? '' : 'Show More')}</p>
+      </div>
     </div>
-    <div className="video-player-details">
-      <h3>{props.video.snippet.title}</h3>
-      <div>{props.video.snippet.description}</div>
-    </div>
-  </div>
-);
+  );
+};
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated

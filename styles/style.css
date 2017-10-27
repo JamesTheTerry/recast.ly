@@ -84,6 +84,16 @@ body {
   padding-left: 20px;
 }
 
+.show-more {
+  font-size: 14px;
+  color: blue;
+  cursor: pointer;
+}
+
+.show-more:hover {
+  text-decoration: underline;
+}
+
 h5 {
   border: 2px solid red;
   text-align: center;

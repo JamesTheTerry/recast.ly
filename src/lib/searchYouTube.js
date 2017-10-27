@@ -16,6 +16,11 @@ window.searchYouTube = searchYouTube;
 
 /* That's so FETCH! */
 
+var appendDataToUrl = (url, data) => {
+  Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
+  return url;
+};
+
 var searchYouTubeFetch = (options, callback) => {
   var url = new URL('https://www.googleapis.com/youtube/v3/search');
   var data = {
@@ -26,12 +31,30 @@ var searchYouTubeFetch = (options, callback) => {
     type: 'video',
     videoEmbeddable: 'true'
   };
-  Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
+  url = appendDataToUrl(url, data);
 
   fetch(url)
     .then((resp) => resp.json())
     .then(function(data) {
       console.log('Fetch Data', data);
       callback(data.items);
+    });
+};
+
+/* Video Details */
+var getVideoDetails = (video, callback) => {
+  var url = new URL('https://www.googleapis.com/youtube/v3/videos');
+  var data = {
+    key: YOUTUBE_API_KEY,
+    id: video.id.videoId,
+    part: 'snippet'
+  };
+  url = appendDataToUrl(url, data);
+
+  fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data) {
+      console.log('Vid Details', data.items[0]);
+      callback(data.items[0]);
     });
 };
